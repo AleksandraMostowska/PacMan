@@ -12,11 +12,13 @@ public class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        var map = new BigMap(10, 10);
+        var map = new BigMap();
+
+        var PacMan = new Pacman("Pacman");
 
         List<IGameObj> creatures2 = new()
             {
-                new Pacman("Pacman"),
+                PacMan,
                 new AngryGhost(),
                 new FriendlyGhost()
             };
@@ -25,10 +27,10 @@ public class Program
             {
                 new PacMan.Point(6, 6),
                 new PacMan.Point(2, 3),
-                new PacMan.Point(1, 1)
+                new PacMan.Point(10, 4)
             };
 
-        string moves2 = "dlrludluddlrulr";
+        string moves2 = "dllrruudlrludluddlrulr";
 
         Simulation simulation = new Simulation(map, creatures2, points2, moves2);
         MapVisualizer mapVisualizer = new MapVisualizer(map);
@@ -52,6 +54,7 @@ public class Program
                 simulation.Turn();
                 mapVisualizer.Draw();
                 turn++;
+                Console.WriteLine(PacMan.GetPoints());
             }
         }
     }

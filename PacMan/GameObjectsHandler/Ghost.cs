@@ -14,6 +14,7 @@ public class Ghost : IGameObj
     public Point Position { get; private set; }
     protected int HpToRemove { get; init; }
     protected IMoveBehavior? moveBehavior;
+    private Point _initialPosition;
 
     public virtual char Symbol => 'G';
 
@@ -28,8 +29,17 @@ public class Ghost : IGameObj
 
         if (Map.Exist(nextPosition))
         {
-            Map.Move(this, Position, nextPosition);
-            Position = nextPosition;
+            if (nextPosition.IsSamePointAs(Map.PacmanPosition))
+            {
+                ResetPosition();
+                Map.RemovePacmansHP(HpToRemove);
+            }
+            else
+            {
+                Map.Move(this, Position, nextPosition);
+                Position = nextPosition;
+            }
+
         }
         else throw new InvalidOperationException("Next position is outside the map boundaries.");
     }
@@ -42,8 +52,22 @@ public class Ghost : IGameObj
 
         Map = map;
         Position = position;
+        _initialPosition = position;
         map.Add(this, position);
     }
 
     public override string ToString() => $"{GetType().Name.ToUpper()}";
+
+    private void ResetPosition()
+    {
+        // Map.Move cannot be applied since by moving him on map and changing his _initialPosition
+        // resulted in duplicating ghost on the map
+        if (Map == null) throw new InvalidOperationException("Map is not set!");
+        Map.Remove(this, Position);
+        Position = _initialPosition;
+        Map.Add(this, _initialPosition);
+
+        //Position = _initialPosition;  
+        //Map.Move(this, Position, _initialPosition); 
+    }
 }

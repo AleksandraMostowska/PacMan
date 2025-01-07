@@ -24,6 +24,8 @@ public readonly struct Point
         };
     }
 
+    public bool IsSamePointAs(Point point) => (X == point.X && Y == point.Y);
+
     //public Point NextDiagonal(Direction direction)
     //{
     //    return direction switch

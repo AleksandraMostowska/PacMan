@@ -16,7 +16,7 @@ public class Pacman : IGameObj
     //private int _level = 1;
     private string _name = "Player 1";
     private int _points = 0;
-    private int _hp = 100;
+    private int _hp = 3;
 
     //public int Level
     //{
@@ -47,10 +47,10 @@ public class Pacman : IGameObj
 
     public void RemovePoint() => _points--;
 
-    public void AddHp(int hp) => _hp = GameValidator.Limiter(_hp + hp, 0, 100);
+    public void AddHp(int hp) => _hp = GameValidator.Limiter(_hp + hp, 0, 3);
 
 
-    public void RemoveHp(int hp) => _hp = GameValidator.Limiter(_hp - hp, 0, 100);
+    public void RemoveHp(int hp) => _hp = GameValidator.Limiter(_hp - hp, 0, 3);
 
     public char Symbol => 'P';
 
@@ -72,9 +72,21 @@ public class Pacman : IGameObj
 
         var newPosition = Map.Next(Position, direction);
 
-        Map.Move(this, Position, newPosition);
-        Position = newPosition;
+        if (!Map.ContainsWall(newPosition))
+        {
+            if (Map.ContainsCoin(newPosition))
+            {
+                var coin = Map.Coins[newPosition];
+                _points++;
+                Map.Remove(coin, newPosition);
+            }
+
+            Map.Move(this, Position, newPosition);
+            Position = newPosition;  
+        }
     }
 
     public override string ToString() => $"{Name.ToUpper()}";
+
+    public int GetPoints() => _points;
 }

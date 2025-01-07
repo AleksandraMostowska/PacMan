@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacMan.MapHandler;
 
-internal static class MapMoveRules
+internal static class MapRules
 {
     public static Point BigNext(Map m, Point p, Direction d)
     {
@@ -19,6 +19,11 @@ internal static class MapMoveRules
         }
         return moved;
     }
+
+    //public static void AddWall(Map m, Point p) => new Wall().InitMapAndPosition(m, p);
+    //public static void AddCoin(Map m, Point p) => new Coin().InitMapAndPosition(m, p);
+
+
 
     //public static Point BigNextDiagonal(Map m, Point p, Direction d)
     //{

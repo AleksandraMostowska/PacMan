@@ -13,6 +13,9 @@ namespace PacMan.MapHandler;
 public abstract class Map
 {
     private readonly Rectangle _bounds;
+    protected Dictionary<Point, Wall>? _walls;
+    protected Dictionary<Point, Coin>? _coins;
+    public Dictionary<Point, Coin> Coins => _coins ?? new Dictionary<Point, Coin>();
     public int SizeX { get; }
     public int SizeY { get; }
     protected Func<Map, Point, Direction, Point>? FNext { get; set; }
@@ -20,8 +23,8 @@ public abstract class Map
 
 
     Dictionary<Point, List<IGameObj>>? _fields;
-    private Point? _pacmanPosition;
-    public Point PacmanPosition => _pacmanPosition ?? throw new InvalidOperationException("Pacman is not on the map.");
+    private Pacman? _pacman;
+    public Point PacmanPosition => _pacman?.Position ?? throw new InvalidOperationException("Pacman is not on the map.");
 
 
     protected Map(int sizeX, int sizeY)
@@ -41,38 +44,50 @@ public abstract class Map
         if (!_fields.ContainsKey(position)) _fields[position] = new List<IGameObj>();
         _fields[position].Add(gameobj);
 
-        if (gameobj is Pacman)
+        if (gameobj is Pacman pacman)
         {
-            //if (_pacmanPosition != null) throw new InvalidOperationException("Pacman is already set on the map.");
-            _pacmanPosition = position;
+            if (_pacman != null) throw new InvalidOperationException("Pacman is already placed on the map.");
+            _pacman = pacman;
         }
     }
 
     public void Remove(IGameObj gameobj, Point position)
     {
         CheckIfPositionWithinMap(position);
-        if (_fields.TryGetValue(position, out var mappables))
+        if (_fields.TryGetValue(position, out var gameObjs))
         {
-            mappables.Remove(gameobj);
+            gameObjs.Remove(gameobj);
             if (_fields[position].Count == 0) _fields.Remove(position);
         }
+
+        if (gameobj is Coin) _coins?.Remove(position);
+
+        if (gameobj is Pacman) _pacman = null;
     }
 
     public List<IGameObj>? At(Point position)
     {
         CheckIfPositionWithinMap(position);
-        return _fields.TryGetValue(position, out var mappables) ? mappables : null;
+        return _fields.TryGetValue(position, out var gameObjs) ? gameObjs : null;
     }
 
     public List<IGameObj>? At(int x, int y) => At(new Point(x, y));
 
     public void Move(IGameObj gameobj, Point posFrom, Point posTo)
     {
+        CheckIfPositionWithinMap(posTo);
+
+        if (_walls.ContainsKey(posTo)) return;
+
         Remove(gameobj, posFrom);
         Add(gameobj, posTo);
-        if (gameobj is Pacman) _pacmanPosition = posTo;
+
+        //if (gameobj is Pacman pacman) pacman.Position = posTo;
     }
 
+
+    public bool ContainsCoin(Point position) => _coins?.ContainsKey(position) ?? false;
+    public bool ContainsWall(Point position) => _walls?.ContainsKey(position) ?? false;
 
 
     /// <summary>
@@ -100,6 +115,8 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     //public Point NextDiagonal(Point p, Direction d) => FNextDiagonal?.Invoke(this, p, d) ?? p;
+
+    public void RemovePacmansHP(int hp) => _pacman?.RemoveHp(hp);
 
 
     private void CheckIfPositionWithinMap(Point position)

@@ -8,42 +8,40 @@ namespace PacMan.MapHandler;
 
 public class BigMap : Map
 {
-    //Dictionary<Point, List<IMappable>>? _fields;
-    public BigMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    
+    public BigMap() : base(28, 31)
     {
-        if (sizeX > 1000) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide.");
-        if (sizeY > 1000) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too high.");
-        FNext = MapMoveRules.BigNext;
+        //if (sizeX > 1000) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide.");
+        //if (sizeY > 1000) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too high.");
+        FNext = MapRules.BigNext;
         //_fields = new Dictionary<Point, List<IMappable>>();
+
+        _walls = new Dictionary<Point, Wall>();
+        _coins = new Dictionary<Point, Coin>();
+
+        InitWallsAndCoins();
+
     }
 
-    //public override void Add(IMappable mappable, Point position)
-    //{
-    //    CheckIfPositionWithinMap(position);
-    //    if (!_fields.ContainsKey(position)) _fields[position] = new List<IMappable>();
-    //    _fields[position].Add(mappable);
-    //}
+    private void InitWallsAndCoins()
+    {
 
-    //public override void Remove(IMappable mappable, Point position)
-    //{
-    //    CheckIfPositionWithinMap(position);
-    //    if (_fields.TryGetValue(position, out var mappables))
-    //    {
-    //        mappables.Remove(mappable);
-    //        if (_fields[position].Count == 0) _fields.Remove(position);
-    //    }
-    //}
+        _walls.Add(new Point(1, 1), new Wall());
+        _walls.Add(new Point(1, 2), new Wall());
+        _walls.Add(new Point(5, 5), new Wall());
+        _walls.Add(new Point(0, 0), new Wall());
+        _walls.Add(new Point(27, 30), new Wall());
+        _walls.Add(new Point(10, 15), new Wall());
 
-    //public override List<IMappable>? At(Point position)
-    //{
-    //    CheckIfPositionWithinMap(position);
-    //    return _fields.TryGetValue(position, out var mappables) ? mappables : null;
-    //}
+        _coins.Add(new Point(3, 3), new Coin());
+        _coins.Add(new Point(7, 7), new Coin());
+        _coins.Add(new Point(10, 10), new Coin());
+        _coins.Add(new Point(2, 5), new Coin());
+        _coins.Add(new Point(20, 20), new Coin());
+        _coins.Add(new Point(14, 28), new Coin());
 
-    //public override List<IMappable>? At(int x, int y) => At(new Point(x, y));
+        foreach (var wall in _walls) Add(wall.Value, wall.Key); ;
+        foreach (var coin in _coins) Add(coin.Value, coin.Key);
+    }
 
-    //private void CheckIfPositionWithinMap(Point position)
-    //{
-    //    if (!Exist(position)) throw new ArgumentException("Position outside the map.");
-    //}
 }
