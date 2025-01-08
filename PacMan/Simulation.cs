@@ -1,5 +1,5 @@
 ﻿using PacMan.GameObjectsHandler;
-using PacMan.MapHandler;
+using PacMan.MapHandler.Maps;
 
 namespace PacMan;
 

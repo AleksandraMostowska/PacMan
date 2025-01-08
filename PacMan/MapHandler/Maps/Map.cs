@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan.MapHandler;
+namespace PacMan.MapHandler.Maps;
 
 /// <summary>
 /// Map of points.
