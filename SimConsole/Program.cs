@@ -27,11 +27,11 @@ public class Program
         List<PacMan.Point> points2 = new()
             {
                 new PacMan.Point(1, 1),
-                new PacMan.Point(2, 1),
-                new PacMan.Point(3, 1)
+                new PacMan.Point(9, 9),
+                new PacMan.Point(10, 9)
             };
 
-        string moves2 = "dllrruudlrludluddlrulr";
+        string moves2 = "uuuudllrruudlrludluddlrulr";
 
         Simulation simulation = new Simulation(map, creatures2, points2, moves2);
         MapVisualizer mapVisualizer = new MapVisualizer(map);
@@ -56,6 +56,7 @@ public class Program
                 mapVisualizer.Draw();
                 turn++;
                 Console.WriteLine(PacMan.GetPoints());
+                Console.WriteLine(PacMan.GetHp());
             }
         }
     }

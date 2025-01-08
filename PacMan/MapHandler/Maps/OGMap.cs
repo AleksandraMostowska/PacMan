@@ -118,10 +118,7 @@ public class OGMap : Map
             _walls.Add(new Point(16, y), new Wall());
             _walls.Add(new Point(17, y), new Wall());
         }
-        _walls.Add(new Point(9, 8), new Wall());
 
-        _walls.Add(new Point(7, 9), new Wall());
-        _walls.Add(new Point(11, 9), new Wall());
 
 
         //_coins.Add(new Point(3, 3), new Coin());

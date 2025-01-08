@@ -19,7 +19,7 @@ public class FriendlyMoveBehavior : IMoveBehavior
         {
             var chosenDirection = directions[_random.Next(directions.Count)];
             nextPosition = map.Next(currentPosition, chosenDirection);
-            if (!map.Exist(nextPosition)) directions.Remove(chosenDirection);
+            if (!map.Exist(nextPosition) && !map.ContainsWall(nextPosition)) directions.Remove(chosenDirection);
         } while (directions.Count > 0 && !map.Exist(nextPosition));
         return map.Exist(nextPosition) ? nextPosition : currentPosition;
     }

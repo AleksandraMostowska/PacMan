@@ -89,4 +89,5 @@ public class Pacman : IGameObj
     public override string ToString() => $"{Name.ToUpper()}";
 
     public int GetPoints() => _points;
+    public int GetHp() => _hp;
 }

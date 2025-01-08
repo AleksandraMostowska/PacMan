@@ -27,21 +27,38 @@ public class Ghost : IGameObj
 
         var nextPosition = moveBehavior.GetNextMove(Position, Map, Map.PacmanPosition);
 
-        if (Map.Exist(nextPosition))
+        if (!Map.ContainsWall(nextPosition))
         {
-            if (nextPosition.IsSamePointAs(Map.PacmanPosition))
+            if (Map.Exist(nextPosition))
             {
-                ResetPosition();
-                Map.RemovePacmansHP(HpToRemove);
+                if (nextPosition.IsSamePointAs(Map.PacmanPosition))
+                {
+                    ResetPosition();
+                    Map.RemovePacmansHP(HpToRemove);
+                }
+                else
+                {
+                    Map.Move(this, Position, nextPosition);
+                    Position = nextPosition;
+                }
             }
-            else
-            {
-                Map.Move(this, Position, nextPosition);
-                Position = nextPosition;
-            }
-
         }
-        else throw new InvalidOperationException("Next position is outside the map boundaries.");
+
+        //if (Map.Exist(nextPosition))
+        //{
+        //    if (nextPosition.IsSamePointAs(Map.PacmanPosition))
+        //    {
+        //        ResetPosition();
+        //        Map.RemovePacmansHP(HpToRemove);
+        //    }
+        //    else
+        //    {
+        //        Map.Move(this, Position, nextPosition);
+        //        Position = nextPosition;
+        //    }
+
+        //}
+        //else throw new InvalidOperationException("Next position is outside the map boundaries.");
     }
 
     public void InitMapAndPosition(Map map, Point position)
@@ -70,4 +87,5 @@ public class Ghost : IGameObj
         //Position = _initialPosition;  
         //Map.Move(this, Position, _initialPosition); 
     }
+
 }

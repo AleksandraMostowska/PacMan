@@ -14,6 +14,6 @@ public class AngryGhost : Ghost
     public AngryGhost() : base()
     {
         moveBehavior = new AngryMoveBehavior();
-        HpToRemove = 2;
+        HpToRemove = 1;
     }
 }

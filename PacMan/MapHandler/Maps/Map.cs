@@ -15,7 +15,11 @@ public abstract class Map
     private readonly Rectangle _bounds;
     protected Dictionary<Point, Wall>? _walls;
     protected Dictionary<Point, Coin>? _coins;
+    
     public Dictionary<Point, Coin> Coins => _coins ?? new Dictionary<Point, Coin>();
+    public Dictionary<Point, Wall>? Walls  => _walls ?? new Dictionary<Point, Wall>();
+
+
     public int SizeX { get; }
     public int SizeY { get; }
     protected Func<Map, Point, Direction, Point>? FNext { get; set; }
