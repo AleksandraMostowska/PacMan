@@ -43,7 +43,9 @@ public class SimulationHistory
                     group => group.Count() > 1 ? 'X' : group.First().Symbol
                 ),
             Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
-            Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins)
+            Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins),
+            Score = 0,
+            HP = 0
         });
 
         while (!_simulation.Finished)
@@ -64,7 +66,9 @@ public class SimulationHistory
                         group => group.Count() > 1 ? 'X' : group.First().Symbol
                     ),
                 Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
-                Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins)
+                Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins),
+                Score = _simulation.Pacman.GetPoints(),
+                HP = _simulation.Pacman.GetHp()
             });
         }
     }

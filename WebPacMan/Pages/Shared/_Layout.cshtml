@@ -4,18 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Site Name</title>
+    <title>@ViewData["Title"] PacMan!</title>
     <link rel="stylesheet" href="~/css/site.css"
           asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <b>SimWeb</b>
+        <img src="/Symbols/logo.png" alt="" class="pacman-logo" />
         <nav class="navbar">
             <a asp-area="" asp-page="/Index">Strona główna</a>
             <a asp-area="" asp-page="/Game">Symulacja</a>
+
         </nav>
     </header>
+    <audio id="background-music" autoplay loop>
+        <source src="/Symbols/pixel-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <main>
         @RenderBody()
     </main>

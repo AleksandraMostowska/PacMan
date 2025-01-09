@@ -116,7 +116,7 @@ public class Simulation
     /// </summary>
     public void Turn() 
     {
-        if (Finished)
+        if (Finished || Pacman.GetPoints() == Map.Coins.Count)
             throw new InvalidOperationException("Simulation is already finished.");
 
         var dir = ParsedMoves[_counter % ParsedMoves.Count];

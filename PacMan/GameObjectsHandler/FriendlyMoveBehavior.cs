@@ -13,15 +13,11 @@ public class FriendlyMoveBehavior : IMoveBehavior
     public Point GetNextMove(Point currentPosition, Map map, Point pacmanPosition)
     {
         var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
-        //Console.WriteLine(directions.Count);
-        //Point nextPosition = currentPosition;
-        Point nextPosition = new Point(currentPosition.X, currentPosition.Y);
-        Console.WriteLine(nextPosition.Equals(currentPosition));
 
         while (directions.Count > 0)
         {
             var chosenDirection = directions[_random.Next(directions.Count)];
-            nextPosition = map.Next(currentPosition, chosenDirection); 
+            var nextPosition = map.Next(currentPosition, chosenDirection); 
 
             if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition))
             {
@@ -33,6 +29,5 @@ public class FriendlyMoveBehavior : IMoveBehavior
 
         return currentPosition;
 
-        //return map.Next(currentPosition, Direction.Right);
     }
 }

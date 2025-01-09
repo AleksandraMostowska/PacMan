@@ -65,11 +65,33 @@
     <div class="map-header">
         @if (Model.CurrentTurn == 0)
         {
-            <span class="alert">Pozycje startowe</span>
+            <span class="alert">READY?!</span>
         }
         else
         {
-            <span class="alert">@Model.SimulationHistory.TurnLogs[Model.CurrentTurn].IGameObj goes @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Move</span>
+            <span class="alert">SCORE: @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Score  HP: @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].HP</span>
         }
     </div>
+
+    <div class="debug-info">
+        <h3>Debug Information - Symbols and Positions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Symbol</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var symbolEntry in Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols)
+                {
+                    <tr>
+                        <td>@symbolEntry.Key</td>
+                        <td>@symbolEntry.Value</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 </container>

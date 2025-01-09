@@ -32,4 +32,6 @@ public class SimulationTurnLog
     public required Dictionary<Point, Wall> Walls { get; init; }
 
     public required Dictionary<Point, Coin> Coins { get; init; }
+    public required int Score { get; init; }
+    public required int HP { get; init; }
 }
