@@ -1,4 +1,5 @@
-﻿using PacMan.MapHandler.Maps;
+﻿using PacMan.MapHandler;
+using PacMan.MapHandler.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,17 +32,18 @@ public class SimulationHistory
 
     private void Run()
     {
-
         TurnLogs.Add(new SimulationTurnLog
         {
             IGameObj = string.Empty,
             Move = string.Empty,
             Symbols = _simulation.GameObjs
-            .GroupBy(m => m.Position)
-            .ToDictionary(
-                group => group.Key,
-                group => group.Count() > 1 ? 'X' : group.First().Symbol
-            )
+                .GroupBy(m => m.Position)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Count() > 1 ? 'X' : group.First().Symbol
+                ),
+            Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
+            Coins = _simulation.Map.Coins.ToDictionary(entry => entry.Key, entry => new Coin(entry.Value.Position))
         });
 
         while (!_simulation.Finished)
@@ -56,11 +58,13 @@ public class SimulationHistory
                 IGameObj = currentMappable.ToString(),
                 Move = move,
                 Symbols = _simulation.GameObjs
-                            .GroupBy(m => m.Position)
-                            .ToDictionary(
-                                group => group.Key,
-                                group => group.Count() > 1 ? 'X' : group.First().Symbol
-                            )
+                    .GroupBy(m => m.Position)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group.Count() > 1 ? 'X' : group.First().Symbol
+                    ),
+                Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
+                Coins = _simulation.Map.Coins.ToDictionary(entry => entry.Key, entry => new Coin(entry.Value.Position))
             });
         }
     }

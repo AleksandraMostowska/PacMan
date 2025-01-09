@@ -31,7 +31,7 @@ public class Program
                 new PacMan.Point(10, 9)
             };
 
-        string moves2 = "uuuudllrruudlrludluddlrulr";
+        string moves2 = "rrrrrrrruuuudllrruudlrludluddlrulr";
 
         Simulation simulation = new Simulation(map, creatures2, points2, moves2);
         MapVisualizer mapVisualizer = new MapVisualizer(map);

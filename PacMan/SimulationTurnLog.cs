@@ -1,4 +1,5 @@
 ﻿using PacMan.GameObjectsHandler;
+using PacMan.MapHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,4 +28,8 @@ public class SimulationTurnLog
     /// Dictionary of IMappable.Symbol on the map in this turn.
     /// </summary>
     public required Dictionary<Point, char> Symbols { get; init; }
+
+    public required Dictionary<Point, Wall> Walls { get; init; }
+
+    public required Dictionary<Point, Coin> Coins { get; init; }
 }

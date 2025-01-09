@@ -26,6 +26,30 @@ public static class DirectionParser
         return directions;
     }
 
+    public static Direction ParseChar(char letter)
+    {
+        Direction directions = new();
+
+        if (letter == 'u' || letter == 'U')
+        {
+            directions = (Direction.Up);
+        }
+        else if (letter == 'd' || letter == 'D')
+        {
+            directions = (Direction.Down); ;
+        }
+        else if (letter == 'l' || letter == 'L')
+        {
+            directions = (Direction.Left);
+        }
+        else if (letter == 'r' || letter == 'R')
+        {
+            directions = (Direction.Right);
+        }
+
+        return directions;
+    }
+
     public static Direction Reverse(Direction direction)
     {
         return direction switch

@@ -121,13 +121,83 @@ public class OGMap : Map
 
 
 
-        //_coins.Add(new Point(3, 3), new Coin());
-        //_coins.Add(new Point(7, 7), new Coin());
-        //_coins.Add(new Point(10, 10), new Coin());
-        //_coins.Add(new Point(2, 5), new Coin());
-        //_coins.Add(new Point(20, 20), new Coin());
-        //_coins.Add(new Point(14, 28), new Coin());
 
+        for (int y = 1; y <= 17; y += 16)
+        {
+            for (int x = 1; x <= 8; x++)
+            {
+                _coins.Add(new Point(x, y), new Coin());
+            }
+            for (int x = 10; x <= 17; x++)
+            {
+                _coins.Add(new Point(x, y), new Coin());
+            }
+        }
+
+        for (int y = 2; y <= 16; y += 14)
+        {
+            _coins.Add(new Point(4, y), new Coin());
+            _coins.Add(new Point(8, y), new Coin());
+            _coins.Add(new Point(10, y), new Coin());
+            _coins.Add(new Point(14, y), new Coin());
+        }
+
+        for (int y = 3; y <= 15; y += 12)
+        {
+            for (int x = 1; x <= 17; x++)
+            {
+                _coins.Add(new Point(x, y), new Coin());
+            }
+
+        }
+
+        for (int y = 4; y <= 14; y += 10)
+        {
+            _coins.Add(new Point(1, y), new Coin());
+            _coins.Add(new Point(4, y), new Coin());
+            _coins.Add(new Point(17, y), new Coin());
+            _coins.Add(new Point(14, y), new Coin());
+        }
+
+        for (int y = 5; y <= 13; y += 8)
+        {
+            _coins.Add(new Point(1, y), new Coin());
+            _coins.Add(new Point(2, y), new Coin());
+            _coins.Add(new Point(3, y), new Coin());
+            _coins.Add(new Point(4, y), new Coin());
+            _coins.Add(new Point(14, y), new Coin());
+            _coins.Add(new Point(15, y), new Coin());
+            _coins.Add(new Point(16, y), new Coin());
+            _coins.Add(new Point(17, y), new Coin());
+        }
+
+        for (int y = 6; y <= 12; y += 6)
+        {
+            _coins.Add(new Point(4, y), new Coin());
+            _coins.Add(new Point(8, y), new Coin());
+            _coins.Add(new Point(10, y), new Coin());
+            _coins.Add(new Point(14, y), new Coin());
+        }
+
+        for (int y = 7; y <= 11; y += 4)
+        {
+            for (int x = 6; x <= 12; x++)
+            {
+                _coins.Add(new Point(x, y), new Coin());
+            }
+        }
+
+        for (int y = 8; y <= 10; y += 2)
+        {
+            _coins.Add(new Point(4, y), new Coin());
+            _coins.Add(new Point(14, y), new Coin());
+        }
+
+        for (int x=1; x<=5; x++)
+        {
+            _coins.Add(new Point(x, 9), new Coin()); 
+            _coins.Add(new Point(18-x, 9), new Coin());
+        }
         foreach (var wall in _walls) Add(wall.Value, wall.Key); ;
         foreach (var coin in _coins) Add(coin.Value, coin.Key);
     }
