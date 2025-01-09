@@ -12,7 +12,7 @@ public class Wall : IGameObj
 {
     public Point Position { get; private set; }
 
-    public char Symbol => '#';
+    public char Symbol => 'W';
 
     public Wall() { }
     public Wall(Point position)
@@ -28,4 +28,5 @@ public class Wall : IGameObj
     }
 
     public override string ToString() => $"Wall at {Position}";
+
 }

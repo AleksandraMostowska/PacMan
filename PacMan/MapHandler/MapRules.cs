@@ -12,7 +12,7 @@ internal static class MapRules
     public static Point BigNext(Map m, Point p, Direction d)
     {
         var moved = p.Next(d);
-        if (!m.Exist(moved))
+        if (!m.Exist(moved) && !m.ContainsWall(moved))
         {
             //var reversed = p.Next(DirectionParser.Reverse(d));
             //if (m.Exist(reversed)) return reversed;

@@ -43,7 +43,7 @@ public class SimulationHistory
                     group => group.Count() > 1 ? 'X' : group.First().Symbol
                 ),
             Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
-            Coins = _simulation.Map.Coins.ToDictionary(entry => entry.Key, entry => new Coin(entry.Value.Position))
+            Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins)
         });
 
         while (!_simulation.Finished)
@@ -64,7 +64,7 @@ public class SimulationHistory
                         group => group.Count() > 1 ? 'X' : group.First().Symbol
                     ),
                 Walls = new Dictionary<Point, Wall>(_simulation.Map.Walls),
-                Coins = _simulation.Map.Coins.ToDictionary(entry => entry.Key, entry => new Coin(entry.Value.Position))
+                Coins = new Dictionary<Point, Coin>(_simulation.Map.Coins)
             });
         }
     }

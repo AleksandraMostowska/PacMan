@@ -122,7 +122,6 @@ public class Simulation
         var dir = ParsedMoves[_counter % ParsedMoves.Count];
 
         Pacman.Go(dir);
-
         foreach (var ghost in GameObjs.OfType<Ghost>())
         {
             ghost.Go(); 

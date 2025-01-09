@@ -29,22 +29,13 @@ public class GameModel : PageModel
         CurrentTurn = 0;
     }
 
-    public void OnGet(int? turn)
-    {
-        CurrentTurn = turn ?? 0;
-    }
+    public void OnGet(int? turn) => CurrentTurn = turn ?? 0;
 
     public void OnPostChangeTurn(string direction, int? turn)
     {
         CurrentTurn = turn ?? 0;
 
-        if (direction == "prev" && CurrentTurn > 0)
-        {
-            CurrentTurn--;
-        }
-        else if (direction == "next" && CurrentTurn < MaxTurn)
-        {
-            CurrentTurn++;
-        }
+        if (direction == "prev" && CurrentTurn > 0) CurrentTurn--;
+        else if (direction == "next" && CurrentTurn < MaxTurn) CurrentTurn++;
     }
 }

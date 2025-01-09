@@ -13,14 +13,26 @@ public class FriendlyMoveBehavior : IMoveBehavior
     public Point GetNextMove(Point currentPosition, Map map, Point pacmanPosition)
     {
         var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
-        Point nextPosition;
+        //Console.WriteLine(directions.Count);
+        //Point nextPosition = currentPosition;
+        Point nextPosition = new Point(currentPosition.X, currentPosition.Y);
+        Console.WriteLine(nextPosition.Equals(currentPosition));
 
-        do
+        while (directions.Count > 0)
         {
             var chosenDirection = directions[_random.Next(directions.Count)];
-            nextPosition = map.Next(currentPosition, chosenDirection);
-            if (!map.Exist(nextPosition) && !map.ContainsWall(nextPosition)) directions.Remove(chosenDirection);
-        } while (directions.Count > 0 && !map.Exist(nextPosition));
-        return map.Exist(nextPosition) ? nextPosition : currentPosition;
+            nextPosition = map.Next(currentPosition, chosenDirection); 
+
+            if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition))
+            {
+                return nextPosition;
+            }
+
+            directions.Remove(chosenDirection); 
+        }
+
+        return currentPosition;
+
+        //return map.Next(currentPosition, Direction.Right);
     }
 }

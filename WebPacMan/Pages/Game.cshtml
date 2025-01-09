@@ -31,29 +31,27 @@
             @for (int x = 0; x < Model.SimulationHistory.SizeX; x++)
             {
                 var position = new Point(x, y);
-                var symbol = ' ';
 
-                if (Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols.ContainsKey(position))
-                {
-                    symbol = Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols[position];
-                }
+                var symbol = Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols.ContainsKey(position) ?
+                Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols[position]
+                : (Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Walls.ContainsKey(position) 
+                ? Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Walls.FirstOrDefault().Value.Symbol
+                : (Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Coins.ContainsKey(position)
+                ? Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Coins.FirstOrDefault().Value.Symbol
+                : ' '));
 
-                else if(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Walls.ContainsKey(position))
-                {
-                    symbol = 'W';
-                }
-
-                else if (Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Coins.ContainsKey(position))
-                {
-                    symbol = 'C';
-                }
-
-                else
-                {
-                    symbol = ' ';
-                }
+                
                 <div class="cell">
-                    <img class="symbol" src="/Symbols/@(symbol).png" alt="@symbol">
+
+                    @if (symbol == 'P') 
+                    {
+                        <img class="pacman @(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Move.ToString().ToLower())" src="/Symbols/P.gif" alt="Pacman">
+                    }
+                    else
+                    {
+                        <img class="symbol" src="/Symbols/@(symbol).gif" alt="">
+                    }
+
                 </div>
             }
         }
