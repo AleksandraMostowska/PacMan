@@ -14,7 +14,9 @@
         <img src="/Symbols/logo.png" alt="" class="pacman-logo" />
         <nav class="navbar">
             <a asp-area="" asp-page="/Index">Strona główna</a>
-            <a asp-area="" asp-page="/Game">Symulacja</a>
+            <a asp-area="" asp-page="/Game" asp-route-mapType="OGMap">OG Map</a>
+            <a asp-area="" asp-page="/Game" asp-route-mapType="CustomMap1">Custom Map 1</a>
+            <a asp-area="" asp-page="/Game" asp-route-mapType="CustomMap2">Custom Map 2</a>
 
         </nav>
     </header>
@@ -25,5 +27,13 @@
     <main>
         @RenderBody()
     </main>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const audioElement = document.getElementById("background-music");
+          audioElement.volume = 0.1; // Ustawienie głośności na 20%
+        });
+    </script>
 </body>
 </html>

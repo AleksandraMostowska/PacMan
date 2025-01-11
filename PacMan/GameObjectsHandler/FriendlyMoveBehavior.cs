@@ -1,33 +1,73 @@
-﻿using PacMan.MapHandler.Maps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PacMan.GameObjectsHandler;
+﻿using PacMan.GameObjectsHandler;
+using PacMan.MapHandler.Maps;
+using PacMan;
 
 public class FriendlyMoveBehavior : IMoveBehavior
 {
-    private static readonly Random _random = new();
+    private const int MinDistance = 3;
+
     public Point GetNextMove(Point currentPosition, Map map, Point pacmanPosition)
     {
-        var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
+        var distance = Math.Abs(currentPosition.X - pacmanPosition.X) +
+                       Math.Abs(currentPosition.Y - pacmanPosition.Y);
 
-        while (directions.Count > 0)
+        if (distance <= MinDistance)
         {
-            var chosenDirection = directions[_random.Next(directions.Count)];
-            var nextPosition = map.Next(currentPosition, chosenDirection); 
+            // Jeśli za blisko, oddala się w kierunku przeciwnym.
+            return MoveAwayFromPacman(currentPosition, pacmanPosition, map);
+        }
+
+        // Jeśli w odpowiedniej odległości, podąża za Pacmanem.
+        return MoveTowardPacman(currentPosition, pacmanPosition, map);
+    }
+
+    private Point MoveTowardPacman(Point currentPosition, Point pacmanPosition, Map map)
+    {
+        var preferredDirections = GetPreferredDirections(currentPosition, pacmanPosition);
+
+        foreach (var direction in preferredDirections)
+        {
+            var nextPosition = map.Next(currentPosition, direction);
 
             if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition))
-            {
                 return nextPosition;
-            }
-
-            directions.Remove(chosenDirection); 
         }
 
         return currentPosition;
+    }
 
+    private Point MoveAwayFromPacman(Point currentPosition, Point pacmanPosition, Map map)
+    {
+        var preferredDirections = GetPreferredDirections(pacmanPosition, currentPosition); // Odwrotność
+
+        foreach (var direction in preferredDirections)
+        {
+            var nextPosition = map.Next(currentPosition, direction);
+
+            if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition))
+                return nextPosition;
+        }
+
+        return currentPosition;
+    }
+
+    private List<Direction> GetPreferredDirections(Point currentPosition, Point targetPosition)
+    {
+        var directions = new List<Direction>();
+        var deltaX = targetPosition.X - currentPosition.X;
+        var deltaY = targetPosition.Y - currentPosition.Y;
+
+        if (Math.Abs(deltaX) > Math.Abs(deltaY))
+        {
+            directions.Add(deltaX > 0 ? Direction.Right : Direction.Left);
+            directions.Add(deltaY > 0 ? Direction.Up : Direction.Down);
+        }
+        else
+        {
+            directions.Add(deltaY > 0 ? Direction.Up : Direction.Down);
+            directions.Add(deltaX > 0 ? Direction.Right : Direction.Left);
+        }
+
+        return directions;
     }
 }

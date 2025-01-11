@@ -1,6 +1,6 @@
 ﻿@page
 @using PacMan
-@model GameModel
+@model Game2Model
 
 <style>
     .map {
@@ -12,17 +12,15 @@
 <container class="map-container">
     <div class="map-header">
         <form method="post" asp-page-handler="ChangeTurn">
-            <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 ? "disabled" : "")>◀</button>
+            <button class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 ? "disabled" : "")>◀</button>
         </form>
 
         <div class="turn">Tura: @Model.CurrentTurn</div>
 
         <form method="post" asp-page-handler="ChangeTurn">
-            <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn ? "disabled" : "")>▶</button>
+            <button class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn ? "disabled" : "")>▶</button>
         </form>
     </div>
 
@@ -41,7 +39,9 @@
                 ? Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Coins.FirstOrDefault().Value.Symbol
                 : ' '));
 
+
                 <div class="cell">
+
                     @if (symbol == 'P')
                     {
                         <img class="pacman @(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Move.ToString().ToLower())" src="/Symbols/P.gif" alt="Pacman">
@@ -50,6 +50,7 @@
                     {
                         <img class="symbol" src="/Symbols/@(symbol).gif" alt="">
                     }
+
                 </div>
             }
         }
@@ -91,4 +92,5 @@
             </tbody>
         </table>
     </div>
+
 </container>

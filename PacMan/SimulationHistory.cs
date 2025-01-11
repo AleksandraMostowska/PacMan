@@ -1,4 +1,5 @@
-﻿using PacMan.MapHandler;
+﻿using PacMan.GameObjectsHandler;
+using PacMan.MapHandler;
 using PacMan.MapHandler.Maps;
 using System;
 using System.Collections.Generic;

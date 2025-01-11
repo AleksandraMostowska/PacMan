@@ -1,41 +1,84 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PacMan;
+using Microsoft.AspNetCore.Mvc;
 using PacMan.GameObjectsHandler;
 using PacMan.MapHandler.Maps;
+using PacMan;
+
 public class GameModel : PageModel
 {
     public SimulationHistory SimulationHistory { get; private set; }
     public int CurrentTurn { get; private set; }
     public int MaxTurn => SimulationHistory.TurnLogs.Count - 1;
+    public string MapType { get; private set; }
 
     public GameModel()
     {
-        OGMap map = new();
+        InitializeSimulation();
+        CurrentTurn = 0;
+    }
+
+    public void OnGet(string mapType, int turn)
+    {
+        // Sprawdzenie, czy typ mapy jest przekazany
+        MapType = mapType ??"OGMap";
+
+        // Ustawienie symulacji na podstawie typu mapy
+        InitializeSimulation();
+
+        CurrentTurn = turn;
+    }
+
+    public void OnPostChangeTurn(string direction, string mapType, int turn)
+    {
+        // Upewnij siê, ¿e mapType i turn s¹ poprawnie ustawione
+        MapType = mapType ?? "OGMap";
+
+        CurrentTurn = turn;
+
+        if (direction == "prev" && CurrentTurn > 0)
+            CurrentTurn--;
+        else if (direction == "next" && CurrentTurn < MaxTurn)
+            CurrentTurn++;
+
+        InitializeSimulation(); // Upewnij siê, ¿e symulacja jest ponownie inicjalizowana
+    }
+
+    private void InitializeSimulation()
+    {
+        var map = GetMapByType(MapType);
+
+        var PacMan = new Pacman("Pacman");
+
         List<IGameObj> creatures = new()
         {
-            new Pacman("Player"),
+            PacMan,
             new AngryGhost(),
-            new FriendlyGhost()
+            new FriendlyGhost(),
+            new PatrolingGhost()
         };
+
         List<Point> points = new()
         {
             new Point(1, 1),
             new Point(9, 9),
+            new Point(10, 9),
             new Point(8, 9)
         };
-        string moves = "rrrrrrrluludlulldllullrdllr";
+
+        string moves = "rrrrrrrruuuudllrruudlrludluddlrulr";
+
         Simulation simulation = new Simulation(map, creatures, points, moves);
         SimulationHistory = new SimulationHistory(simulation);
-        CurrentTurn = 0;
     }
 
-    public void OnGet(int? turn) => CurrentTurn = turn ?? 0;
-
-    public void OnPostChangeTurn(string direction, int? turn)
+    private Map GetMapByType(string mapType)
     {
-        CurrentTurn = turn ?? 0;
-
-        if (direction == "prev" && CurrentTurn > 0) CurrentTurn--;
-        else if (direction == "next" && CurrentTurn < MaxTurn) CurrentTurn++;
+        return mapType switch
+        {
+            "OGMap" => new OGMap(),
+            "CustomMap1" => new CustomMap1(),
+            "CustomMap2" => new CustomMap2(),
+            _ => new OGMap()
+        };
     }
 }

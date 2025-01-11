@@ -18,7 +18,7 @@ public class AngryMoveBehavior : IMoveBehavior
 
             var nextPosition = map.Next(currentPosition, direction);
 
-            if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition)) return nextPosition; 
+            if (map.Exist(nextPosition) && !map.ContainsWall(nextPosition)) return nextPosition;
 
             //var nextPosition = map.Next(currentPosition, direction);
             //if (map.Exist(nextPosition)) return nextPosition;
