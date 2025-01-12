@@ -16,7 +16,7 @@ public class Pacman : IGameObj
     //private int _level = 1;
     private string _name = "Player 1";
     private int _points = 0;
-    private int _hp = 3;
+    private int _hp = 2;
 
     //public int Level
     //{
@@ -47,10 +47,10 @@ public class Pacman : IGameObj
 
     public void RemovePoint() => _points--;
 
-    public void AddHp(int hp) => _hp = GameValidator.Limiter(_hp + hp, 0, 3);
+    public void AddHp(int hp) => _hp = GameValidator.Limiter(_hp + hp, -1, 2);
 
 
-    public void RemoveHp(int hp) => _hp = GameValidator.Limiter(_hp - hp, 0, 3);
+    public void RemoveHp(int hp) => _hp = GameValidator.Limiter(_hp - hp, -1, 2);
 
     public char Symbol => 'P';
 

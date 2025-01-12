@@ -22,7 +22,7 @@
         <form method="post" asp-page-handler="ChangeTurn">
             <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn || Model.SimulationHistory.TurnLogs[Model.CurrentTurn + 1].HP == 0 ? "disabled" : "")>▶</button>
+            <button type="submit" class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn || Model.SimulationHistory.TurnLogs[Model.CurrentTurn].HP == -1 ? "disabled" : "")>▶</button>
         </form>
     </div>
 
@@ -61,7 +61,7 @@
     </div>
 
     <div class="map-header">
-        @if (Model.SimulationHistory.TurnLogs[Math.Min(Model.CurrentTurn + 1, Model.MaxTurn)].HP == 0)
+        @if (Model.SimulationHistory.TurnLogs[Math.Min(Model.CurrentTurn, Model.MaxTurn)].HP == -1)
         {
             <span class="alert">GAME OVER!</span>
         }
@@ -71,7 +71,7 @@
         }
         else
         {
-            <span class="alert">SCORE: @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Score  HP: @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].HP</span>
+            <span class="alert">SCORE: @Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Score  HP: @(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].HP + 1)</span>
         }
     </div>
 
