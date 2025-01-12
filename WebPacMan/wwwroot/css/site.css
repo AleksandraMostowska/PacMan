@@ -216,28 +216,3 @@ header b {
 .pacman-logo:hover {
     transform: scale(1.05);
 }
-
-
-
-
-
-
-.debug-info {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: black;
-    border: 1px solid #ccc;
-}
-
-.debug-info table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.debug-info th, .debug-info td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-

@@ -14,7 +14,7 @@
         <form method="post" asp-page-handler="ChangeTurn">
             <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 ? "disabled" : "")>◀</button>
+            <button type="submit" class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 || Model.SimulationHistory.TurnLogs[Model.CurrentTurn - 1].HP == 0 ? "disabled" : "")>◀</button>
         </form>
 
         <div class="turn">Tura: @Model.CurrentTurn</div>
@@ -22,7 +22,7 @@
         <form method="post" asp-page-handler="ChangeTurn">
             <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn ? "disabled" : "")>▶</button>
+            <button type="submit" class="button" name="direction" value="next" @(Model.CurrentTurn == Model.MaxTurn || Model.SimulationHistory.TurnLogs[Model.CurrentTurn + 1].HP == 0 ? "disabled" : "")>▶</button>
         </form>
     </div>
 
@@ -61,7 +61,11 @@
     </div>
 
     <div class="map-header">
-        @if (Model.CurrentTurn == 0)
+        @if (Model.SimulationHistory.TurnLogs[Math.Min(Model.CurrentTurn + 1, Model.MaxTurn)].HP == 0)
+        {
+            <span class="alert">GAME OVER!</span>
+        }
+        else if (Model.CurrentTurn == 0)
         {
             <span class="alert">READY?!</span>
         }
@@ -71,24 +75,4 @@
         }
     </div>
 
-    <div class="debug-info">
-        <h3>Debug Information - Symbols and Positions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Symbol</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var symbolEntry in Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Symbols)
-                {
-                    <tr>
-                        <td>@symbolEntry.Key</td>
-                        <td>@symbolEntry.Value</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 </container>

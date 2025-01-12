@@ -19,10 +19,8 @@ public class GameModel : PageModel
 
     public void OnGet(string mapType, int turn)
     {
-        // Sprawdzenie, czy typ mapy jest przekazany
         MapType = mapType ??"OGMap";
 
-        // Ustawienie symulacji na podstawie typu mapy
         InitializeSimulation();
 
         CurrentTurn = turn;
@@ -30,7 +28,6 @@ public class GameModel : PageModel
 
     public void OnPostChangeTurn(string direction, string mapType, int turn)
     {
-        // Upewnij siê, ¿e mapType i turn s¹ poprawnie ustawione
         MapType = mapType ?? "OGMap";
 
         CurrentTurn = turn;
@@ -40,8 +37,10 @@ public class GameModel : PageModel
         else if (direction == "next" && CurrentTurn < MaxTurn)
             CurrentTurn++;
 
-        InitializeSimulation(); // Upewnij siê, ¿e symulacja jest ponownie inicjalizowana
+        InitializeSimulation(); 
     }
+
+
 
     private void InitializeSimulation()
     {

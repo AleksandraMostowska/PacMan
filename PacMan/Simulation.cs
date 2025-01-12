@@ -76,15 +76,15 @@ public class Simulation
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
-    /// if creatures' list is empty,
-    /// if number of creatures differs from 
+    /// if players' list is empty,
+    /// if number of players differs from 
     /// number of starting positions.
     /// </summary>
     public Simulation(Map map, List<IGameObj> gameObjs,
         List<Point> positions, string moves)
     {
         if (gameObjs == null || gameObjs.Count == 0)
-            throw new ArgumentException("Creatures list cannot be empty.");
+            throw new ArgumentException("Players list cannot be empty.");
 
         if (positions == null || positions.Count != gameObjs.Count)
             throw new ArgumentException("Positions count does not match the number of characters.");
@@ -116,6 +116,7 @@ public class Simulation
     /// </summary>
     public void Turn() 
     {
+        Console.WriteLine(Pacman.GetHp());
         if (Finished || Pacman.GetPoints() == Map.Coins.Count)
             throw new InvalidOperationException("Simulation is already finished.");
 
@@ -130,7 +131,7 @@ public class Simulation
         _counter++;
         if (_counter >= Moves.Length) Finished = true;
     }
-
+    
 
     /// <summary>
     /// Validates moves input.
