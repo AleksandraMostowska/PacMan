@@ -44,7 +44,8 @@
                 <div class="cell">
                     @if (symbol == 'P')
                     {
-                        <img class="pacman @(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Move.ToString().ToLower())" src="/Symbols/P.gif" alt="Pacman">
+                        @if (Model.SimulationHistory.TurnLogs[Model.CurrentTurn].HP == -1) symbol = 'B';
+                        <img class="pacman @(Model.SimulationHistory.TurnLogs[Model.CurrentTurn].Move.ToString().ToLower())" src="/Symbols/@(symbol).gif" alt="Pacman">
                     }
                     else
                     {
