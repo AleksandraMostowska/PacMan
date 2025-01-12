@@ -1,7 +1,8 @@
-﻿using PacMan;
-using PacMan.GameObjectsHandler;
+﻿using PacMan.GameObjectsHandler;
+using PacMan.GameObjectsHandler.GhostHandler;
 using PacMan.MapHandler;
 using PacMan.MapHandler.Maps;
+using PacMan.SimulationHandler;
 using System.Drawing;
 using System.Text;
 

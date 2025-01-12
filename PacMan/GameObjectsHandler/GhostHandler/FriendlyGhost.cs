@@ -6,15 +6,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan.GameObjectsHandler;
+namespace PacMan.GameObjectsHandler.GhostHandler;
 
-public class PatrolingGhost : Ghost
+public class FriendlyGhost : Ghost
 {
-    public override char Symbol => 'T';
+    public override char Symbol => 'F';
 
-    public PatrolingGhost()
+    public FriendlyGhost()
     {
-        moveBehavior = new PatrolingMoveBehavior();
+        moveBehavior = new FriendlyMoveBehavior();
         HpToRemove = 1;
     }
 }

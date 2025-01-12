@@ -14,7 +14,7 @@
         <form method="post" asp-page-handler="ChangeTurn">
             <input type="hidden" name="mapType" value="@Model.MapType" />
             <input type="hidden" name="turn" value="@Model.CurrentTurn" />
-            <button type="submit" class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 || Model.SimulationHistory.TurnLogs[Model.CurrentTurn - 1].HP == 0 ? "disabled" : "")>◀</button>
+            <button type="submit" class="button" name="direction" value="prev" @(Model.CurrentTurn == 0 ? "disabled" : "")>◀</button>
         </form>
 
         <div class="turn">Tura: @Model.CurrentTurn</div>

@@ -1,4 +1,5 @@
 ﻿using PacMan;
+using PacMan.SimulationHandler;
 using System.Text;
 
 internal class LogVisualizer

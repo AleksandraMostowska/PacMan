@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-using PacMan.GameObjectsHandler;
+using PacMan.GameObjectsHandler.GhostHandler;
 using PacMan.MapHandler.Maps;
 using PacMan;
+using PacMan.GameObjectsHandler;
+using PacMan.SimulationHandler;
 
 public class GameModel : PageModel
 {

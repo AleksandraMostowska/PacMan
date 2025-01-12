@@ -1,6 +1,6 @@
-﻿using PacMan.GameObjectsHandler;
-using PacMan.MapHandler.Maps;
+﻿using PacMan.MapHandler.Maps;
 using PacMan;
+using PacMan.GameObjectsHandler.GhostHandler;
 
 public class PatrolingMoveBehavior : IMoveBehavior
 {

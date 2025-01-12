@@ -1,7 +1,8 @@
 ﻿using PacMan.GameObjectsHandler;
+using PacMan.GameObjectsHandler.GhostHandler;
 using PacMan.MapHandler.Maps;
 
-namespace PacMan;
+namespace PacMan.SimulationHandler;
 
 public class Simulation
 {
@@ -12,21 +13,20 @@ public class Simulation
     public Map Map { get; }
 
     /// <summary>
-    /// Creatures moving on the map.
+    /// Player moving on the map.
     /// </summary>
     public List<IGameObj> GameObjs { get; }
 
     /// <summary>
-    /// Starting positions of creatures.
+    /// Starting positions of players.
     /// </summary>
     public List<Point> Positions { get; }
 
     /// <summary>
-    /// Cyclic list of creatures moves. 
+    /// Cyclic list of pacman moves. 
     /// Bad moves are ignored - use DirectionParser.
     /// First move is for first mappable, second for second and so on.
-    /// When all creatures make moves, 
-    /// next move is again for first mappable and so on.
+    /// When all creatures make moves.
     /// </summary>
     public string Moves { get; }
 
@@ -49,20 +49,14 @@ public class Simulation
     /// <summary>
     /// Valid moves chars.
     /// </summary>
-    private HashSet<char> validMoves = new HashSet<char>{ 'l', 'r', 'u', 'd' };
+    private HashSet<char> validMoves = new HashSet<char> { 'l', 'r', 'u', 'd' };
 
     /// <summary>
     /// Reference to Pacman object in the game.
     /// </summary>
     public readonly Pacman Pacman;
 
-    /// <summary>
-    /// IMappable which will be moving current turn.
-    /// </summary>
-    //public IGameObj CurrentGameObj
-    //{
-    //    get => GameObjs[_counter % GameObjs.Count];
-    //}
+
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -102,7 +96,7 @@ public class Simulation
         for (int i = 0; i < gameObjs.Count; i++)
         {
             gameObjs[i].InitMapAndPosition(map, positions[i]);
-            if (gameObjs[i] is Pacman p) Pacman = p; 
+            if (gameObjs[i] is Pacman p) Pacman = p;
 
         }
 
@@ -111,12 +105,11 @@ public class Simulation
     }
 
     /// <summary>
-    /// Makes one move of current mappable in current direction.
+    /// Makes one move of pacman in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn() 
+    public void Turn()
     {
-        Console.WriteLine(Pacman.GetHp());
         if (Finished || Pacman.GetPoints() == Map.Coins.Count)
             throw new InvalidOperationException("Simulation is already finished.");
 
@@ -125,13 +118,13 @@ public class Simulation
         Pacman.Go(dir);
         foreach (var ghost in GameObjs.OfType<Ghost>())
         {
-            ghost.Go(); 
+            ghost.Go();
         }
 
         _counter++;
         if (_counter >= Moves.Length) Finished = true;
     }
-    
+
 
     /// <summary>
     /// Validates moves input.
@@ -139,8 +132,8 @@ public class Simulation
     private List<Direction> ValidateMoves(string moves)
     {
         return moves
-            .Where(c => validMoves.Contains(char.ToLower(c))) 
+            .Where(c => validMoves.Contains(char.ToLower(c)))
             .Select(c => DirectionParser.Parse(c.ToString()).FirstOrDefault())
             .ToList();
-    } 
+    }
 }

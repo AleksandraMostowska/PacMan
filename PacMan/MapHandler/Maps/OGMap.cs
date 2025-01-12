@@ -26,17 +26,16 @@ public class OGMap : Map
     private void InitWallsAndCoins()
     {
 
-        // Ściany mapy (zewnętrzne obramowanie)
         for (int x = 0; x < SizeX; x++)
         {
-            _walls.Add(new Point(x, 0), new Wall()); // Górna krawędź
-            _walls.Add(new Point(x, SizeY-1), new Wall()); // Dolna krawędź
+            _walls.Add(new Point(x, 0), new Wall()); 
+            _walls.Add(new Point(x, SizeY-1), new Wall());
         }
 
         for (int y = 1; y < SizeY-1; y++)
         {
-            _walls.Add(new Point(0, y), new Wall()); // Lewa krawędź
-            _walls.Add(new Point(SizeX - 1, y), new Wall()); // Prawa krawędź
+            _walls.Add(new Point(0, y), new Wall());
+            _walls.Add(new Point(SizeX - 1, y), new Wall()); 
         }
         _walls.Add(new Point(9, 1), new Wall());
         _walls.Add(new Point(9, 17), new Wall());

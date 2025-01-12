@@ -25,16 +25,4 @@ public readonly struct Point
     }
 
     public bool IsSamePointAs(Point point) => (X == point.X && Y == point.Y);
-
-    //public Point NextDiagonal(Direction direction)
-    //{
-    //    return direction switch
-    //    {
-    //        Direction.Left => new Point(X - 1, Y + 1),
-    //        Direction.Right => new Point(X + 1, Y - 1),
-    //        Direction.Up => new Point(X + 1, Y + 1),
-    //        Direction.Down => new Point(X - 1, Y - 1),
-    //        _ => this
-    //    };
-    //}
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan.GameObjectsHandler;
+namespace PacMan.GameObjectsHandler.GhostHandler;
 
 public interface IMoveBehavior
 {

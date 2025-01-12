@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan;
+namespace PacMan.SimulationHandler;
 
 public class SimulationHistory
 {
