@@ -11,11 +11,7 @@ public class OGMap : Map
 
     public OGMap() : base(19, 19)
     {
-        //if (sizeX > 1000) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide.");
-        //if (sizeY > 1000) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too high.");
         FNext = MapRules.BigNext;
-        //_fields = new Dictionary<Point, List<IMappable>>();
-
         _walls = new Dictionary<Point, Wall>();
         _coins = new Dictionary<Point, Coin>();
 

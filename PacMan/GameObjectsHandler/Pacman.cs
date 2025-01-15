@@ -13,19 +13,9 @@ public class Pacman : IGameObj
 {
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
-    //private int _level = 1;
     private string _name = "Player 1";
     private int _points = 0;
     private int _hp = 2;
-
-    //public int Level
-    //{
-    //    get => _level;
-    //    init
-    //    {
-    //        _level = GameValidator.Limiter(value, 1, 10);
-    //    }
-    //}
 
     public string Name
     {

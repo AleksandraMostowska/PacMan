@@ -23,7 +23,6 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
     protected Func<Map, Point, Direction, Point>? FNext { get; set; }
-    //protected Func<Map, Point, Direction, Point>? FNextDiagonal { get; set; }
 
 
     Dictionary<Point, List<IGameObj>>? _fields;
@@ -85,8 +84,6 @@ public abstract class Map
 
         Remove(gameobj, posFrom);
         Add(gameobj, posTo);
-
-        //if (gameobj is Pacman pacman) pacman.Position = posTo;
     }
 
 
@@ -108,17 +105,6 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public Point Next(Point p, Direction d) => FNext?.Invoke(this, p, d) ?? p;
-
-    //Func<Point, Direction, Point> Next = (p, d) => ;
-
-    /// <summary>
-    /// Next diagonal position to the point in a given direction 
-    /// rotated 45 degrees clockwise.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
-    //public Point NextDiagonal(Point p, Direction d) => FNextDiagonal?.Invoke(this, p, d) ?? p;
 
     public void RemovePacmansHP(int hp) => _pacman?.RemoveHp(hp);
 

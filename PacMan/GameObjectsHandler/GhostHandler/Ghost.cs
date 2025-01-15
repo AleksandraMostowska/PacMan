@@ -43,22 +43,6 @@ public class Ghost : IGameObj
                 }
             }
         }
-
-        //if (Map.Exist(nextPosition))
-        //{
-        //    if (nextPosition.IsSamePointAs(Map.PacmanPosition))
-        //    {
-        //        ResetPosition();
-        //        Map.RemovePacmansHP(HpToRemove);
-        //    }
-        //    else
-        //    {
-        //        Map.Move(this, Position, nextPosition);
-        //        Position = nextPosition;
-        //    }
-
-        //}
-        //else throw new InvalidOperationException("Next position is outside the map boundaries.");
     }
 
     public void InitMapAndPosition(Map map, Point position)
@@ -83,9 +67,6 @@ public class Ghost : IGameObj
         Map.Remove(this, Position);
         Position = _initialPosition;
         Map.Add(this, _initialPosition);
-
-        //Position = _initialPosition;  
-        //Map.Move(this, Position, _initialPosition); 
     }
 
 }
